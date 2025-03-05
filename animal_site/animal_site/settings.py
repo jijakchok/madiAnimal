@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'vdjy%adon8&_-@h$+s*%4uwoiz0_*a^-e*4%6h-!54+k8q3(4n')  # Замените на случайную строку
 DEBUG = False  # В продакшене должно быть False
-ALLOWED_HOSTS = ['https://madianimal..onrender.com']
+ALLOWED_HOSTS = ['https://madianimal.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -86,6 +86,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ['https://madianimal.onrender.com']
 SESSION_COOKIE_SECURE = True
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True

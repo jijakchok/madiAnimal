@@ -1,0 +1,89 @@
+{% extends "animals/base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Верхняя часть (до линии) -->
+<div class="top-section">
+    <div class="container">
+        <!-- Центральный блок с заголовком -->
+        <div class="hero-section">
+            <h1 class="hero-title">Помогаем найти бездомных животных</h1>
+        </div>
+
+        <!-- Блок с тезисами -->
+        <div class="thesis-section">
+            <div class="thesis-item">
+                <h2>Интегрируем современные технологии</h2>
+                <p>Используем передовые решения для поиска и помощи животным.</p>
+            </div>
+            <div class="thesis-item">
+                <h2>Объединяем людей и животных</h2>
+                <p>Каждое объявление — это шанс для животного обрести дом.</p>
+            </div>
+            <div class="thesis-item">
+                <h2>Создаем сообщество</h2>
+                <p>Мы объединяем волонтеров, приюты и неравнодушных людей.</p>
+            </div>
+        </div>
+
+        <!-- Блок с обоснованием и анимацией -->
+        <div class="intro-section">
+            <div class="intro-text">
+                <h2>Мы помогаем бездомным и потерявшимся животным!</h2>
+                <p>
+                    Наш сайт создан для того, чтобы помочь животным найти дом или вернуться к своим хозяевам.
+                    Каждое объявление — это шанс для животного обрести заботу и любовь.
+                </p>
+                <p class="counter">Уже опубликовано объявлений: <strong>{{ total_animals }}</strong></p>
+            </div>
+            <div class="intro-animation">
+                <img src="{% static 'images/cute_animal.gif' %}" alt="Милое животное">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Разделительная линия -->
+<div class="divider"></div>
+
+<!-- Нижняя часть (после линии) -->
+<div class="bottom-section">
+    <div class="container">
+        <!-- Кнопки сортировки (слева) -->
+        <div class="sort-buttons">
+            <a href="?sort=newest" class="sort-button {% if sort == 'newest' %}active{% endif %}">Сначала новые</a>
+            <a href="?sort=oldest" class="sort-button {% if sort == 'oldest' %}active{% endif %}">Сначала старые</a>
+        </div>
+
+        <!-- Поиск по дате (слева) -->
+        <div class="search-form">
+            <form action="{% url 'search' %}" method="get">
+                <input type="text" name="q" placeholder="Поиск по дате">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+
+        <!-- Лента анкет (горизонтальная сетка) -->
+        <div class="animal-grid">
+            {% for animal in page_obj %}
+            <div class="animal-card">
+                <img src="{{ animal.image.url }}" alt="Animal Image">
+                <p>Дата: {{ animal.date }}</p>
+                <p>Комментарий: {{ animal.comment }}</p>
+                <p>Номер: {{ animal.number }}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Пагинация -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">Предыдущая</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">Следующая</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

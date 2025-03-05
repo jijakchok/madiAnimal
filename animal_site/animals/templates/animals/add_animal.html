@@ -1,0 +1,21 @@
+{% extends "animals/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="add-animal-form">
+    <h1>Добавить анкету</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="image">Изображение:</label>
+        <input type="file" id="image" name="image" required>
+
+        <label for="comment">Комментарий:</label>
+        <textarea id="comment" name="comment" required></textarea>
+
+        <label for="contact">Контактная информация:</label>
+        <input type="text" id="contact" name="contact" required>
+
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+{% endblock %}

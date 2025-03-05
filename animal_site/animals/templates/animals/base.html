@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Site</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <script src="script.js" async></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'add_animal' %}">Добавить анкету</a>
+            <a href="{% url 'about' %}">О нас</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <!-- Окно с соглашением о куки-файлах -->
+    <div class="cookie-consent" id="cookie-consent">
+        <p>Мы используем куки-файлы для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
+        <button onclick="acceptCookies()">Принять</button>
+    </div>
+    <script>
+        function acceptCookies() {
+            document.getElementById('cookie-consent').style.display = 'none';
+            localStorage.setItem('cookiesAccepted', 'true');
+        }
+
+        if (localStorage.getItem('cookiesAccepted')) {
+            document.getElementById('cookie-consent').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

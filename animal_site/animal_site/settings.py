@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'vdjy%adon8&_-@h$+s*%4uwoiz0_*a^-e*4%6h-!54+k8q3(4n')  # Замените на случайную строку
 DEBUG = False  # В продакшене должно быть False
-ALLOWED_HOSTS = ['madianimal.onrender.com']
+ALLOWED_HOSTS = ['.onrender.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

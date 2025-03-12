@@ -63,6 +63,13 @@
             </form>
         </div>
 
+        <input type="date" id="datePicker" name="q" list="dates">
+        <datalist id="dates">
+            {% for animal in page_obj %}
+            <option value="{{ animal.date|date:'Y-m-d' }}">
+            {% endfor %}
+        </datalist>
+
         <!-- Лента анкет (горизонтальная сетка) -->
         <div class="animal-grid">
             {% for animal in page_obj %}

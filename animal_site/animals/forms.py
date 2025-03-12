@@ -5,4 +5,4 @@ from .models import Animal
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['image', 'comment', 'number']
+        fields = ['image', 'comment', 'number', 'location']  # Добавьте новое поле

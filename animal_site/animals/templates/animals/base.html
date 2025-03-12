@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <script src="script.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.21.1/minified.js"></script>
 </head>
 <body>
     <header>
@@ -35,5 +36,17 @@
             document.getElementById('cookie-consent').style.display = 'none';
         }
     </script>
+    <button id="themeToggle">Темная тема</button>
+    <script>
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+    });
+    </script>
+<footer>
+    <p>Референсы: <a href="#">Источник изображений</a></p>
+    <p>Разработчик: <a href="#">Ваше имя</a></p>
+    <p>Лицензия: MIT</p>
+</footer>
 </body>
 </html>

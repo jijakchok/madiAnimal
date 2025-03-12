@@ -6,6 +6,7 @@ class Animal(models.Model):
     date = models.DateTimeField(default=timezone.now, db_index=True)
     comment = models.TextField()
     number = models.IntegerField(blank=True, null=True)
+    location = models.CharField(max_length=255, blank=True, null=True)  # Новое поле
     ip_address = models.GenericIPAddressField()
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -12,7 +12,7 @@ from django.core.cache import cache
 
 def home(request):
     sort = request.GET.get('sort', 'newest')  # По умолчанию сортируем от новых к старым
-    animals = Animal.objects.filter(date__gte=timezone.now() - timedelta(days=7))
+    animals = Animal.objects.filter(date__gte=timezone.now() - timedelta(days=30))
 
     if sort == 'oldest':
         animals = animals.order_by('date')  # От старых к новым

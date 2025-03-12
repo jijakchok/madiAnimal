@@ -58,7 +58,12 @@
         <!-- Поиск по дате (слева) -->
         <div class="search-form">
             <form action="{% url 'search' %}" method="get">
-                <input type="text" name="q" placeholder="Поиск по дате">
+                <select name="q" id="datePicker">
+                    <option value="">Выберите дату</option>
+                    {% for animal in page_obj %}
+                        <option value="{{ animal.date|date:'Y-m-d' }}">{{ animal.date|date:"d.m.Y" }}</option>
+                    {% endfor %}
+                </select>
                 <button type="submit">Найти</button>
             </form>
         </div>

@@ -63,19 +63,23 @@ def about(request):
 
 def search(request):
     query = request.GET.get('q')
-    animals = Animal.objects.none()  # По умолчанию пустой queryset
+    animals = Animal.objects.all()  # По умолчанию показываем все анкеты
 
     if query:
         try:
             # Преобразуем строку в объект datetime
             search_date = datetime.strptime(query, '%d.%m.%Y').date()
             # Ищем записи с указанной датой
-            animals = Animal.objects.filter(date__date=search_date)
+            animals = animals.filter(date__date=search_date)
             if not animals.exists():
                 messages.info(request, "Такой даты не существует.")
         except ValueError:
             # Если дата некорректна, выводим сообщение
             messages.error(request, "Некорректный формат даты. Используйте формат ДД.ММ.ГГГГ.")
 
-    return render(request, 'animals/home.html', {'animals': animals})
+    # Передаем данные в шаблон
+    context = {
+        'animals': animals,
+    }
+    return render(request, 'animals/home.html', context)
 

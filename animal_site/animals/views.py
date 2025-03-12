@@ -18,7 +18,7 @@ def home(request):
     if show_all:
         animals = Animal.objects.all()
     else:
-        animals = Animal.objects.all()
+        animals = Animal.objects.all()  # По умолчанию показываем все анкеты
 
     if sort == 'oldest':
         animals = animals.order_by('date')
@@ -77,9 +77,15 @@ def search(request):
             # Если дата некорректна, выводим сообщение
             messages.error(request, "Некорректный формат даты. Используйте формат ДД.ММ.ГГГГ.")
 
+    # Добавляем пагинацию
+    paginator = Paginator(animals, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     # Передаем данные в шаблон
     context = {
-        'animals': animals,
+        'page_obj': page_obj,
+        'total_animals': Animal.objects.count(),
     }
     return render(request, 'animals/home.html', context)
 

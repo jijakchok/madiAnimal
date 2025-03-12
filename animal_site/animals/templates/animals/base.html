@@ -22,13 +22,6 @@
     <main>
         {% block content %}{% endblock %}
     </main>
-    <button id="themeToggle">Темная тема</button>
-    <script>
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-    });
-    </script>
     <!-- Окно с соглашением о куки-файлах -->
     <div class="cookie-consent" id="cookie-consent">
         <p>Мы используем куки-файлы для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с этим.</p>

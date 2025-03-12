@@ -73,7 +73,7 @@
 
         <!-- Лента анкет (горизонтальная сетка) -->
         <div class="animal-grid">
-            {% for animal in animals %}
+            {% for animal in page_obj %}
             <div class="animal-card">
                 <img src="{{ animal.image.url }}" alt="Animal Image">
                 <p>Дата: {{ animal.date|date:"d.m.Y H:i" }}</p>

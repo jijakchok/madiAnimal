@@ -18,7 +18,7 @@ def home(request):
     if show_all:
         animals = Animal.objects.all()
     else:
-        animals = Animal.objects.filter(date__gte=timezone.now() - timedelta(days=30))
+        animals = Animal.objects.all()
 
     if sort == 'oldest':
         animals = animals.order_by('date')
@@ -27,7 +27,7 @@ def home(request):
 
     total_animals = Animal.objects.count()
 
-    paginator = Paginator(animals, 10)
+    paginator = Paginator(animals, 20)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 

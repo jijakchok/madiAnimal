@@ -73,7 +73,7 @@
 
         <!-- Лента анкет (горизонтальная сетка) -->
         <div class="animal-grid">
-            {% for animal in animals %}
+            {% for animal in page_obj %}
             <div class="animal-card">
                 <img src="{{ animal.image.url }}" alt="Animal Image">
                 <p>Дата: {{ animal.date|date:"d.m.Y H:i" }}</p>
@@ -92,6 +92,7 @@
             <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">Следующая</a>
             {% endif %}
         </div>
+
 
         {% if messages %}
         <div class="messages">

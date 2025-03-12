@@ -9,6 +9,7 @@ from .models import Animal
 from .forms import AnimalForm
 from datetime import timedelta
 from django.core.cache import cache
+from datetime import datetime
 
 def home(request):
     sort = request.GET.get('sort', 'newest')  # По умолчанию сортируем от новых к старым
@@ -60,8 +61,19 @@ def about(request):
 
 def search(request):
     query = request.GET.get('q')
+    animals = Animal.objects.none()  # По умолчанию пустой queryset
+
     if query:
-        animals = Animal.objects.filter(Q(date__icontains=query))
-    else:
-        animals = Animal.objects.none()
+        try:
+            # Преобразуем строку в объект datetime
+            search_date = datetime.strptime(query, '%d.%m.%Y').date()
+            # Ищем записи с указанной датой
+            animals = Animal.objects.filter(date__date=search_date)
+            if not animals.exists():
+                messages.info(request, "Такой даты не существует.")
+        except ValueError:
+            # Если дата некорректна, выводим сообщение
+            messages.error(request, "Некорректный формат даты. Используйте формат ДД.ММ.ГГГГ.")
+
     return render(request, 'animals/search.html', {'animals': animals})
+

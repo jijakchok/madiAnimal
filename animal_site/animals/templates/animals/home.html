@@ -58,17 +58,17 @@
         <!-- Поиск по дате (слева) -->
         <div class="search-form">
             <form action="{% url 'search' %}" method="get">
-                <input type="text" name="q" placeholder="Введите дату (дд.мм.гггг)">
+                <input type="text" name="q" placeholder="Введите дату (дд.мм.гггг)" list="dates">
+                <datalist id="dates">
+                    {% for animal in page_obj %}
+                        <option value="{{ animal.date|date:'d.m.Y' }}">
+                    {% endfor %}
+                </datalist>
                 <button type="submit">Найти</button>
             </form>
         </div>
 
-        <input type="date" id="datePicker" name="q" list="dates">
-        <datalist id="dates">
-            {% for animal in page_obj %}
-            <option value="{{ animal.date|date:'Y-m-d' }}">
-            {% endfor %}
-        </datalist>
+
 
         <!-- Лента анкет (горизонтальная сетка) -->
         <div class="animal-grid">

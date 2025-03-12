@@ -30,8 +30,12 @@ body::before {
 }
 
 /* Header */
+
+header nav a:hover {
+    color: #1abc9c;
+}
 header {
-    background-color: rgba(44, 62, 80, 0.9); /* Темный фон с легкой прозрачностью */
+    background-color: rgba(44, 62, 80, 0.9);
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -40,6 +44,7 @@ header nav {
     display: flex;
     justify-content: flex-start;
     gap: 20px;
+    align-items: center; /* Выравнивание кнопок по центру */
 }
 
 header nav a {
@@ -75,15 +80,19 @@ header nav a:hover {
     display: flex;
     justify-content: space-around;
     padding: 40px 20px;
-    background-color: #fff; /* Белый непрозрачный фон */
-    border-radius: 15px; /* Закругленные углы */
+    background-color: #ffffff; /* Белый цвет */
+    border-radius: 15px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .thesis-item {
     text-align: left;
     max-width: 300px;
+    background-color: #f8f9fa; /* Светлый цвет */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .thesis-item h2 {
@@ -358,12 +367,15 @@ footer {
     color: white;
     padding: 10px;
     text-align: center;
-    position: relative; /* Изменено с fixed на relative */
-    margin-top: 20px; /* Добавьте отступ сверху */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 main {
-    margin-bottom: 15px; /* Добавьте отступ, чтобы контент не перекрывался футером */
+    margin-bottom: 60px; /* Отступ, чтобы контент не перекрывался футером */
 }
 .dark-theme {
     background-color: #333;
@@ -376,11 +388,7 @@ main {
     width: 200px;
     margin-right: 10px;
 }
-header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+
 .messages {
     margin: 20px 0;
 }
@@ -394,11 +402,13 @@ header nav {
 .alert-info {
     background-color: #d9edf7;
     color: #31708f;
+    border: 1px solid #bce8f1;
 }
 
 .alert-error {
     background-color: #f2dede;
     color: #a94442;
+    border: 1px solid #ebccd1;
 }
 .search-form input[type="text"] {
     padding: 10px;
@@ -412,4 +422,8 @@ header nav {
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+body {
+    background-color: #e6f0ff; /* Мягкий синий цвет */
+    background-image: none; /* Уберите фоновое изображение */
 }

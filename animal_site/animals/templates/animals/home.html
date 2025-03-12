@@ -91,6 +91,17 @@
             <a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">Следующая</a>
             {% endif %}
         </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

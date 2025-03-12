@@ -75,5 +75,6 @@ def search(request):
             # Если дата некорректна, выводим сообщение
             messages.error(request, "Некорректный формат даты. Используйте формат ДД.ММ.ГГГГ.")
 
-    return render(request, 'animals/search.html', {'animals': animals})
+    # Возвращаем пользователя на ту же страницу
+    return render(request, 'animals/home.html', {'animals': animals})
 

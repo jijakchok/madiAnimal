@@ -21,6 +21,13 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+    <button id="themeToggle">Темная тема</button>
+    <script>
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+    });
+    </script>
     <!-- Окно с соглашением о куки-файлах -->
     <div class="cookie-consent" id="cookie-consent">
         <p>Мы используем куки-файлы для улучшения вашего опыта. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
@@ -36,17 +43,11 @@
             document.getElementById('cookie-consent').style.display = 'none';
         }
     </script>
-    <button id="themeToggle">Темная тема</button>
-    <script>
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-    });
-    </script>
+
+</body>
 <footer>
     <p>Референсы: <a href="#">Источник изображений</a></p>
     <p>Разработчик: <a href="#">Ваше имя</a></p>
     <p>Лицензия: MIT</p>
 </footer>
-</body>
 </html>

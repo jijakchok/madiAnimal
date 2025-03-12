@@ -51,6 +51,7 @@
     <div class="container">
         <!-- Кнопки сортировки (слева) -->
         <div class="sort-buttons">
+            <a href="?show=all" class="sort-button {% if not sort %}active{% endif %}">Все анкеты</a>
             <a href="?sort=newest" class="sort-button {% if sort == 'newest' %}active{% endif %}">Сначала новые</a>
             <a href="?sort=oldest" class="sort-button {% if sort == 'oldest' %}active{% endif %}">Сначала старые</a>
         </div>

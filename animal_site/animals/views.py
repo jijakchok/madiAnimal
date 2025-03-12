@@ -12,27 +12,29 @@ from django.core.cache import cache
 from datetime import datetime
 
 def home(request):
-    sort = request.GET.get('sort', 'newest')  # По умолчанию сортируем от новых к старым
-    animals = Animal.objects.filter(date__gte=timezone.now() - timedelta(days=30))
+    sort = request.GET.get('sort')
+    show_all = request.GET.get('show') == 'all'
+
+    if show_all:
+        animals = Animal.objects.all()
+    else:
+        animals = Animal.objects.filter(date__gte=timezone.now() - timedelta(days=30))
 
     if sort == 'oldest':
-        animals = animals.order_by('date')  # От старых к новым
+        animals = animals.order_by('date')
     else:
-        animals = animals.order_by('-date')  # От новых к старым
+        animals = animals.order_by('-date')
 
-    # Подсчет общего количества объявлений
     total_animals = Animal.objects.count()
 
-    # Пагинация
     paginator = Paginator(animals, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    # Передаем данные в шаблон
     context = {
         'page_obj': page_obj,
         'sort': sort,
-        'total_animals': total_animals,  # Добавляем счетчик
+        'total_animals': total_animals,
     }
     return render(request, 'animals/home.html', context)
 

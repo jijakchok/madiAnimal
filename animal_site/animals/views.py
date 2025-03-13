@@ -13,6 +13,8 @@ from datetime import timedelta
 from django.core.cache import cache
 from datetime import datetime
 
+
+
 def home(request):
     sort = request.GET.get('sort')
     show_all = request.GET.get('show') == 'all'
@@ -62,16 +64,22 @@ def upload_to_imgbb(image_file):
         raise Exception("Ошибка при загрузке изображения на ImgBB")
 
 def add_animal(request):
+    print(request.FILES)
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
             animal = form.save(commit=False)
             # Загрузите изображение на ImgBB
-            image_url = upload_to_imgbb(request.FILES['image'])
-            animal.image_url = image_url  # Сохраните URL изображения
-            animal.save()
-            messages.success(request, "Анкета успешно добавлена!")
-            return redirect('home')
+            try:
+                image_url = upload_to_imgbb(request.FILES['image'])
+                animal.image_url = image_url  # Сохраните URL изображения
+                animal.save()
+                messages.success(request, "Анкета успешно добавлена!")
+                return redirect('home')
+            except Exception as e:
+                messages.error(request, f"Ошибка при загрузке изображения: {e}")
+        else:
+            messages.error(request, "Форма заполнена неправильно.")
     else:
         form = AnimalForm()
     return render(request, 'animals/add_animal.html', {'form': form})

@@ -43,8 +43,18 @@ def home(request):
     return render(request, 'animals/home.html', context)
 
 def upload_to_imgbb(image_file):
+    # Проверка размера изображения (максимум 32 МБ)
+    if image_file.size > 32 * 1024 * 1024:  # 32 МБ
+        raise Exception("Изображение слишком большое. Максимальный размер — 32 МБ.")
+
+    # Проверка формата изображения
+    allowed_extensions = ['jpg', 'jpeg', 'png', 'gif']
+    file_extension = image_file.name.split('.')[-1].lower()
+    if file_extension not in allowed_extensions:
+        raise Exception("Недопустимый формат изображения. Используйте JPEG, PNG или GIF.")
+
     url = "https://api.imgbb.com/1/upload"
-    api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
+    api_key = "ваш-api-ключ"  # Замените на ваш API-ключ
 
     # Отправляем изображение на ImgBB
     response = requests.post(
@@ -64,20 +74,19 @@ def upload_to_imgbb(image_file):
         raise Exception("Ошибка при загрузке изображения на ImgBB")
 
 def add_animal(request):
-    print(request.FILES)
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
             animal = form.save(commit=False)
-            # Загрузите изображение на ImgBB
             try:
                 image_url = upload_to_imgbb(request.FILES['image'])
-                animal.image_url = image_url  # Сохраните URL изображения
-                animal.save()
-                messages.success(request, "Анкета успешно добавлена!")
-                return redirect('home')
+                animal.image_url = image_url
             except Exception as e:
                 messages.error(request, f"Ошибка при загрузке изображения: {e}")
+                animal.image_url = None  # Сохраните анкету без изображения
+            animal.save()
+            messages.success(request, "Анкета успешно добавлена!")
+            return redirect('home')
         else:
             messages.error(request, "Форма заполнена неправильно.")
     else:

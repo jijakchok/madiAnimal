@@ -61,20 +61,15 @@ def upload_to_imgbb(image_file):
     else:
         raise Exception("Ошибка при загрузке изображения на ImgBB")
 
-def add_animal(request):  # Убедитесь, что эта функция есть
+def add_animal(request):
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
-            ip = request.META.get('REMOTE_ADDR')
-            cache_key = f"animal_submission_{ip}"
-            submission_count = cache.get(cache_key, 0)
-            if submission_count >= 4:
-                messages.warning(request, "Вы отправляете слишком много анкет. Пожалуйста, подождите 30 минут.")
-                return redirect('add_animal')
             animal = form.save(commit=False)
-            animal.ip_address = ip
+            # Загрузите изображение на ImgBB
+            image_url = upload_to_imgbb(request.FILES['image'])
+            animal.image_url = image_url  # Сохраните URL изображения
             animal.save()
-            cache.set(cache_key, submission_count + 1, 1800)  # 30 минут
             messages.success(request, "Анкета успешно добавлена!")
             return redirect('home')
     else:

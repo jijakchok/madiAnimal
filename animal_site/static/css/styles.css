@@ -38,8 +38,16 @@ header {
     background-color: rgba(44, 62, 80, 0.9);
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
+main {
+    margin-top: 70px; /* Отступ, чтобы контент не перекрывался хедером */
+}
 header nav {
     display: flex;
     justify-content: flex-start;
@@ -422,4 +430,45 @@ main {
 body {
     background-color: #e6f0ff; /* Мягкий синий цвет */
     background-image: none; /* Уберите фоновое изображение */
+}
+
+#menuToggle {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+#menuToggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(44, 62, 80, 0.9);
+    padding: 10px;
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu.active {
+    display: flex;
 }

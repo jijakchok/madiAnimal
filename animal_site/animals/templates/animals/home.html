@@ -75,7 +75,7 @@
         <div class="animal-grid">
             {% for animal in page_obj %}
             <div class="animal-card">
-                <img src="{{ animal.image.url }}" alt="Animal Image">
+                <img src="{{ animal.image_url }}" alt="Animal Image">
                 <p>Дата: {{ animal.date|date:"d.m.Y H:i" }}</p>
                 <p>Комментарий: {{ animal.comment }}</p>
                 <p>Номер: {{ animal.number }}</p>

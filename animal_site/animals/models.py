@@ -2,11 +2,11 @@ from django.db import models
 from django.utils import timezone
 
 class Animal(models.Model):
-    image = models.ImageField(upload_to='animals/')
+    image_url = models.URLField(blank=True, null=True)  # URL изображения
     date = models.DateTimeField(default=timezone.now, db_index=True)
     comment = models.TextField()
     number = models.IntegerField(blank=True, null=True)
-    location = models.CharField(max_length=255, blank=True, null=True)  # Новое поле
+    location = models.CharField(max_length=255, blank=True, null=True)
     ip_address = models.GenericIPAddressField()
     created_at = models.DateTimeField(auto_now_add=True)
 

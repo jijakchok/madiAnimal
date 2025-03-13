@@ -11,14 +11,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/3.21.1/minified.js"></script>
 </head>
 <body>
-    <header>
-    <nav>
-        <a href="{% url 'home' %}">Главная</a>
-        <a href="{% url 'add_animal' %}">Добавить анкету</a>
-        <a href="{% url 'about' %}">О нас</a>
-
-    </nav>
-</header>
+    <<header>
+        <nav>
+            <button id="menuToggle">☰</button>
+            <div id="menu" class="menu">
+                <a href="{% url 'home' %}">Главная</a>
+                <a href="{% url 'add_animal' %}">Добавить анкету</a>
+                <a href="{% url 'about' %}">О нас</a>
+            </div>
+        </nav>
+    </header>
     <main>
         {% block content %}{% endblock %}
     </main>
@@ -37,11 +39,16 @@
             document.getElementById('cookie-consent').style.display = 'none';
         }
     </script>
-
+<script>
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        var menu = document.getElementById('menu');
+        menu.classList.toggle('active');
+    });
+</script>
 </body>
 <footer>
     <p>Сайт создан студентами МАДИ из группы 1бИТС4 в рамках проекта обучение служением</p>
-    <p>Референсы: <a href="#">Источник изображений background from www.freepik.com</a></p>
+    <p>Референсы: Источник изображений background <a href="#"> www.freepik.com</a></p>
     <p>Разработчик: <a href="#">@Kirimdo</a></p>
     <p>Лицензия: MIT</p>
 </footer>

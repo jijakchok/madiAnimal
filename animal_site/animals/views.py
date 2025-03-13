@@ -1,5 +1,7 @@
 # animals/views.py
-
+import requests
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.core.paginator import Paginator
@@ -37,6 +39,27 @@ def home(request):
         'total_animals': total_animals,
     }
     return render(request, 'animals/home.html', context)
+
+def upload_to_imgbb(image_file):
+    url = "https://api.imgbb.com/1/upload"
+    api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
+
+    # Отправляем изображение на ImgBB
+    response = requests.post(
+        url,
+        data={
+            "key": api_key,
+        },
+        files={
+            "image": image_file,
+        },
+    )
+
+    if response.status_code == 200:
+        data = response.json()
+        return data["data"]["url"]  # Возвращаем URL изображения
+    else:
+        raise Exception("Ошибка при загрузке изображения на ImgBB")
 
 def add_animal(request):  # Убедитесь, что эта функция есть
     if request.method == 'POST':

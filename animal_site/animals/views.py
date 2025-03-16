@@ -55,7 +55,9 @@ def upload_to_imgbb(image_file):
 
     url = "https://api.imgbb.com/1/upload"
     api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
-
+    print("Отправка запроса на ImgBB...")  # Отладочный вывод
+    print(f"Размер файла: {image_file.size} байт")  # Отладочный вывод
+    print(f"Имя файла: {image_file.name}")  # Отладочный вывод
     # Отправляем изображение на ImgBB
     response = requests.post(
         url,
@@ -66,7 +68,7 @@ def upload_to_imgbb(image_file):
             "image": image_file,
         },
     )
-    print(response.json())
+    print("Ответ от ImgBB:", response.text)  # Отладочный вывод
 
     if response.status_code == 200:
         data = response.json()

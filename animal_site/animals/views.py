@@ -54,7 +54,7 @@ def upload_to_imgbb(image_file):
         raise Exception("Недопустимый формат изображения. Используйте JPEG, PNG или GIF.")
 
     url = "https://api.imgbb.com/1/upload"
-    api_key = "ваш-api-ключ"  # Замените на ваш API-ключ
+    api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
 
     # Отправляем изображение на ImgBB
     response = requests.post(

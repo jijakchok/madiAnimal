@@ -66,6 +66,7 @@ def upload_to_imgbb(image_file):
             "image": image_file,
         },
     )
+    print(response.json())
 
     if response.status_code == 200:
         data = response.json()

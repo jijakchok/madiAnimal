@@ -89,13 +89,20 @@ def add_animal(request):
             try:
                 image_code = upload_to_imgbb(request.FILES['image'])
                 animal.image_code = image_code
-                logger.info(f"Image URL: {image_code}")
             except Exception as e:
                 messages.error(request, f"Ошибка при загрузке изображения: {e}")
-                animal.image_url = None
+                animal.image_code = None
+
+            # Извлечение IP-адреса пользователя
+            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+            if x_forwarded_for:
+                ip_address = x_forwarded_for.split(',')[0]
+            else:
+                ip_address = request.META.get('REMOTE_ADDR')
+            animal.ip_address = ip_address
+
             try:
                 animal.save()
-                logger.info("Animal saved successfully")
                 messages.success(request, "Анкета успешно добавлена!")
                 return redirect('home')
             except Exception as e:

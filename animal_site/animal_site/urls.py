@@ -13,3 +13,6 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('search/', views.search, name='search'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Обработчик для ошибки 404
+handler404 = 'animals.views.custom_404'

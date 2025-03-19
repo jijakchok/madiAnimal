@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {% extends "animals/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="error-page">
+    <h1>404</h1>
+    <h2>Страница не найдена</h2>
+    <p>Извините, но страница, которую вы ищете, не существует.</p>
+    <p>Попробуйте вернуться на <a href="{% url 'home' %}">главную страницу</a>.</p>
+</div>
+{% endblock %}
+</body>
+</html>

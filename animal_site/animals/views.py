@@ -73,7 +73,9 @@ def upload_to_imgbb(image_file):
     print("Ответ от ImgBB:", response.text)  # Отладочный вывод
     if response.status_code == 200:
         data = response.json()
-        return data["data"]["id"]  # Возвращаем код изображения
+        image_code = data["data"]["id"] # Возвращаем код изображения
+        image_filename = data["data"]["image"]["filename"]  # Имя файла (например, "cat-paw-seamless-pattern.jpg")
+        return image_code, image_filename
     else:
         raise Exception("Ошибка при загрузке изображения на ImgBB")
 
@@ -87,11 +89,13 @@ def add_animal(request):
         if form.is_valid():
             animal = form.save(commit=False)
             try:
-                image_code = upload_to_imgbb(request.FILES['image'])
+                image_code, image_filename = upload_to_imgbb(request.FILES['image'])
                 animal.image_code = image_code
+                animal.image_filename = image_filename
             except Exception as e:
                 messages.error(request, f"Ошибка при загрузке изображения: {e}")
                 animal.image_code = None
+                animal.image_filename = None
 
             # Извлечение IP-адреса пользователя
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')

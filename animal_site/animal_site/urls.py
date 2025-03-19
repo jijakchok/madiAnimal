@@ -3,6 +3,7 @@
 from django.contrib import admin
 from django.urls import path
 from animals import views  # Убедитесь, что views импортированы правильно
+from django.conf.urls import handler404
 from django.conf import settings
 from django.conf.urls.static import static
 

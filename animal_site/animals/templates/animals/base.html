@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animal Site</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
@@ -13,12 +14,9 @@
 <body>
     <<header>
         <nav>
-            <button id="menuToggle">☰</button>
-            <div id="menu" class="menu">
-                <a href="{% url 'home' %}">Главная</a>
-                <a href="{% url 'add_animal' %}">Добавить анкету</a>
-                <a href="{% url 'about' %}">О нас</a>
-            </div>
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="{% url 'add_animal' %}">Добавить анкету</a>
+            <a href="{% url 'about' %}">О нас</a>
         </nav>
     </header>
     <main>

@@ -75,8 +75,8 @@
         <div class="animal-grid">
             {% for animal in page_obj %}
             <div class="animal-card">
-                {% if animal.image_url %}
-                <img src="{{ animal.image_url }}" alt="Animal Image">
+                {% if animal.image_code %}
+                <img src="https://ibb.co/{{ animal.image_code }}" alt="Animal Image">
                 {% else %}
                 <p>Изображение отсутствует</p>
                 {% endif %}

@@ -12,7 +12,9 @@ from .forms import AnimalForm
 from datetime import timedelta
 from django.core.cache import cache
 from datetime import datetime
+import logging
 
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -69,12 +71,15 @@ def upload_to_imgbb(image_file):
         },
     )
     print("Ответ от ImgBB:", response.text)  # Отладочный вывод
-
     if response.status_code == 200:
         data = response.json()
-        return data["data"]["url"]  # Возвращаем URL изображения
+        return data["data"]["id"]  # Возвращаем код изображения
     else:
         raise Exception("Ошибка при загрузке изображения на ImgBB")
+
+
+
+
 
 def add_animal(request):
     if request.method == 'POST':
@@ -82,14 +87,20 @@ def add_animal(request):
         if form.is_valid():
             animal = form.save(commit=False)
             try:
-                image_url = upload_to_imgbb(request.FILES['image'])
-                animal.image_url = image_url
+                image_code = upload_to_imgbb(request.FILES['image'])
+                animal.image_code = image_code
+                logger.info(f"Image URL: {image_code}")
             except Exception as e:
                 messages.error(request, f"Ошибка при загрузке изображения: {e}")
-                animal.image_url = None  # Сохраните анкету без изображения
-            animal.save()
-            messages.success(request, "Анкета успешно добавлена!")
-            return redirect('home')
+                animal.image_url = None
+            try:
+                animal.save()
+                logger.info("Animal saved successfully")
+                messages.success(request, "Анкета успешно добавлена!")
+                return redirect('home')
+            except Exception as e:
+                logger.error(f"Error saving animal: {e}")
+                messages.error(request, "Ошибка при сохранении анкеты.")
         else:
             messages.error(request, "Форма заполнена неправильно.")
     else:

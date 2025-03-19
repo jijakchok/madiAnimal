@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 class Animal(models.Model):
-    image_url = models.URLField(blank=True, null=True)  # URL изображения
+    image_code = models.CharField(max_length=255, blank=True, null=True)  # Код изображения
     date = models.DateTimeField(default=timezone.now, db_index=True)
     comment = models.TextField()
     number = models.IntegerField(blank=True, null=True)

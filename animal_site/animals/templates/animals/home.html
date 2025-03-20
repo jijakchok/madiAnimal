@@ -97,7 +97,7 @@
             {% for animal in page_obj %}
             <div class="animal-card">
                 {% if animal.image_code and animal.image_filename %}
-                <img src="https://i.ibb.co/{{ animal.image_code }}/{{ animal.image_filename }}" alt="Animal Image">
+                <img src="https://i.ibb.com/{{ animal.image_code }}/{{ animal.image_filename }}" alt="Animal Image">
                 {% else %}
                 <p>Изображение отсутствует</p>
                 {% endif %}

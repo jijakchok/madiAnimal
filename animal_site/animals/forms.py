@@ -10,7 +10,7 @@ class AnimalForm(forms.ModelForm):
         number = self.cleaned_data['number']
         if not number.isdigit() or len(number) != 11:
             raise forms.ValidationError("Номер должен состоять из 11 цифр.")
-        return number
+        return int(number)  # Преобразуйте строку в число
 
     def clean_location(self):
         location = self.cleaned_data['location']

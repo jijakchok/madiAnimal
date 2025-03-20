@@ -89,7 +89,13 @@ def add_animal(request):
             animal = form.save(commit=False)
             logger.info("Форма валидна. Начало обработки изображения.")
 
+            # Проверяем, было ли загружено изображение
+            if 'image' not in request.FILES:
+                messages.error(request, "Изображение не было загружено.")
+                return render(request, 'animals/add_animal.html', {'form': form})
+
             try:
+                # Загружаем изображение на ImgBB
                 image_code, image_filename = upload_to_imgbb(request.FILES['image'])
                 animal.image_code = image_code
                 animal.image_filename = image_filename
@@ -109,16 +115,21 @@ def add_animal(request):
             animal.ip_address = ip_address
 
             try:
+                # Сохраняем объект Animal в базе данных
                 animal.save()
                 messages.success(request, "Анкета успешно добавлена!")
                 return redirect('home')
             except Exception as e:
                 logger.error(f"Ошибка при сохранении анкеты: {e}")
-                messages.error(request, "Ошибка при сохранении анкеты.")
+                messages.error(request, f"Ошибка при сохранении анкеты: {e}")
+                return render(request, 'animals/add_animal.html', {'form': form})
         else:
+            # Если форма невалидна, логируем ошибки и показываем сообщение пользователю
             logger.error(f"Форма невалидна: {form.errors}")
             messages.error(request, "Форма заполнена неправильно. Проверьте введенные данные.")
+            return render(request, 'animals/add_animal.html', {'form': form})
     else:
+        # Если метод запроса GET, просто отображаем форму
         form = AnimalForm()
     return render(request, 'animals/add_animal.html', {'form': form})
 

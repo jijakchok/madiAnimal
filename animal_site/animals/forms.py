@@ -4,7 +4,7 @@ from .models import Animal
 class AnimalForm(forms.ModelForm):
     class Meta:
         model = Animal
-        fields = ['comment', 'number', 'location','image']
+        fields = ['comment', 'number', 'location']
 
     def clean_number(self):
         number = self.cleaned_data['number']

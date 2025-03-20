@@ -53,32 +53,37 @@ def upload_to_imgbb(image_file):
     if file_extension not in allowed_extensions:
         raise Exception("Недопустимый формат изображения. Используйте JPEG, PNG или GIF.")
 
-    url = "https://api.imgbb.com/1/upload"
-    api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
-    print("Отправка запроса на ImgBB...")  # Отладочный вывод
-    print(f"Размер файла: {image_file.size} байт")  # Отладочный вывод
-    print(f"Имя файла: {image_file.name}")  # Отладочный вывод
-    # Отправляем изображение на ImgBB
-    response = requests.post(
-        url,
-        data={
-            "key": api_key,
-        },
-        files={
-            "image": image_file,
-        },
-    )
-    print("Ответ от ImgBB:", response.text)  # Отладочный вывод
-    if response.status_code == 200:
-        data = response.json()
-        image_code = data["data"]["id"] # Возвращаем код изображения
-        image_filename = data["data"]["image"]["filename"]  # Имя файла (например, "cat-paw-seamless-pattern.jpg")
-        return image_code, image_filename
-    else:
-        raise Exception("Ошибка при загрузке изображения на ImgBB")
+    try:
+        logger.info("Начало загрузки изображения на ImgBB")
+        url = "https://api.imgbb.com/1/upload"
+        api_key = "386b55dd6972e7905abca308bbae6312"  # Замените на ваш API-ключ
+        logger.info(f"API ключ: {api_key}")
+
+        response = requests.post(
+            url,
+            data={
+                "key": api_key,
+            },
+            files={
+                "image": image_file,
+            },
+        )
+
+        logger.info(f"Ответ от ImgBB: {response.status_code}, {response.text}")
+
+        if response.status_code == 200:
+            data = response.json()
+            return data["data"]["id"], data["data"]["image"]["filename"]
+        else:
+            raise Exception(f"Ошибка при загрузке изображения на ImgBB: {response.text}")
+    except Exception as e:
+        logger.error(f"Ошибка в функции upload_to_imgbb: {e}")
+        raise
 
 
 
+
+logger = logging.getLogger(__name__)
 
 
 def add_animal(request):
@@ -86,6 +91,8 @@ def add_animal(request):
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
             animal = form.save(commit=False)
+            logger.info(f"Файл изображения: {request.FILES.get('image')}")
+
             try:
                 image_code, image_filename = upload_to_imgbb(request.FILES['image'])
                 animal.image_code = image_code

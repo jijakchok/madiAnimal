@@ -90,7 +90,9 @@ def add_animal(request):
                 image_code, image_filename = upload_to_imgbb(request.FILES['image'])
                 animal.image_code = image_code
                 animal.image_filename = image_filename
+                logger.info(f"Изображение успешно загружено: {image_code}, {image_filename}")
             except Exception as e:
+                logger.error(f"Ошибка при загрузке изображения: {e}")
                 messages.error(request, f"Ошибка при загрузке изображения: {e}")
                 animal.image_code = None
                 animal.image_filename = None
@@ -108,9 +110,10 @@ def add_animal(request):
                 messages.success(request, "Анкета успешно добавлена!")
                 return redirect('home')
             except Exception as e:
-                logger.error(f"Error saving animal: {e}")
+                logger.error(f"Ошибка при сохранении анкеты: {e}")
                 messages.error(request, "Ошибка при сохранении анкеты.")
         else:
+            logger.error(f"Форма невалидна: {form.errors}")
             messages.error(request, "Форма заполнена неправильно. Проверьте введенные данные.")
     else:
         form = AnimalForm()

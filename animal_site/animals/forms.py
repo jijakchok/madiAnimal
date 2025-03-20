@@ -8,8 +8,8 @@ class AnimalForm(forms.ModelForm):
 
     def clean_number(self):
         number = self.cleaned_data['number']
-        if not number.isdigit() or len(number) != 10:
-            raise forms.ValidationError("Номер должен состоять из 10 цифр.")
+        if not number.isdigit() or len(number) != 11:
+            raise forms.ValidationError("Номер должен состоять из 11 цифр.")
         return number
 
     def clean_location(self):

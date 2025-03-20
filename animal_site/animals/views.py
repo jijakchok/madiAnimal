@@ -81,17 +81,13 @@ def upload_to_imgbb(image_file):
         raise
 
 
-
-
 logger = logging.getLogger(__name__)
-
-
 def add_animal(request):
     if request.method == 'POST':
         form = AnimalForm(request.POST, request.FILES)
         if form.is_valid():
             animal = form.save(commit=False)
-            logger.info(f"Файл изображения: {request.FILES.get('image')}")
+            logger.info("Форма валидна. Начало обработки изображения.")
 
             try:
                 image_code, image_filename = upload_to_imgbb(request.FILES['image'])

@@ -18,20 +18,18 @@ logger = logging.getLogger(__name__)
 
 
 def home(request):
-    sort = request.GET.get('sort')
-    show_all = request.GET.get('show') == 'all'
+    locations = Animal.objects.values_list('location', flat=True).distinct()
+    numbers = Animal.objects.values_list('number', flat=True).distinct()
 
-    if show_all:
-        animals = Animal.objects.all()
-    else:
-        animals = Animal.objects.all()  # По умолчанию показываем все анкеты
+    location_filter = request.GET.get('location')
+    number_filter = request.GET.get('number')
 
-    if sort == 'oldest':
-        animals = animals.order_by('date')
-    else:
-        animals = animals.order_by('-date')
+    animals = Animal.objects.all()
 
-    total_animals = Animal.objects.count()
+    if location_filter:
+        animals = animals.filter(location=location_filter)
+    if number_filter:
+        animals = animals.filter(number=number_filter)
 
     paginator = Paginator(animals, 20)
     page_number = request.GET.get('page')
@@ -39,8 +37,8 @@ def home(request):
 
     context = {
         'page_obj': page_obj,
-        'sort': sort,
-        'total_animals': total_animals,
+        'locations': locations,
+        'numbers': numbers,
     }
     return render(request, 'animals/home.html', context)
 
@@ -113,7 +111,7 @@ def add_animal(request):
                 logger.error(f"Error saving animal: {e}")
                 messages.error(request, "Ошибка при сохранении анкеты.")
         else:
-            messages.error(request, "Форма заполнена неправильно.")
+            messages.error(request, "Форма заполнена неправильно. Проверьте введенные данные.")
     else:
         form = AnimalForm()
     return render(request, 'animals/add_animal.html', {'form': form})

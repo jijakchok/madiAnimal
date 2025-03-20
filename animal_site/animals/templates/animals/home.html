@@ -62,13 +62,34 @@
                 <input type="text" name="q" placeholder="Введите дату (дд.мм.гггг)" list="dates">
                 <datalist id="dates">
                     {% for animal in page_obj %}
-                        <option value="{{ animal.date|date:'d.m.Y' }}">
-                    {% endfor %}
+                    <option value="{{ animal.date|date:'d.m.Y' }}">
+                        {% endfor %}
                 </datalist>
                 <button type="submit">Найти</button>
             </form>
         </div>
 
+        <div class="filters">
+            <form method="get" action="{% url 'home' %}">
+                <label for="location">Местоположение:</label>
+                <select id="location" name="location">
+                    <option value="">Все</option>
+                    {% for loc in locations %}
+                    <option value="{{ loc }}">{{ loc }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="number">Номер:</label>
+                <select id="number" name="number">
+                    <option value="">Все</option>
+                    {% for num in numbers %}
+                    <option value="{{ num }}">{{ num }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit">Применить фильтры</button>
+            </form>
+        </div>
 
 
         <!-- Лента анкет (горизонтальная сетка) -->

@@ -5,27 +5,30 @@
 <div class="add-animal-form-container">
     <div class="add-animal-form">
         <h1>Добавить анкету</h1>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="add-animal-form">
             {% csrf_token %}
             <div class="form-group">
                 <label for="image">Изображение:</label>
-                <input type="file" id="image" name="image" required>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <small>Поддерживаемые форматы: JPG, PNG, GIF. Максимальный размер: 32 МБ.</small>
             </div>
             <div class="form-group">
                 <label for="comment">Комментарий:</label>
-                <textarea id="comment" name="comment" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="contact">Контактная информация:</label>
-                <input type="text" id="contact" name="contact" required>
+                <textarea id="comment" name="comment" minlength="4" maxlength="500" required
+                          title="Комментарий должен содержать минимум 4 символа."></textarea>
+                <small>Минимум 4 символа, максимум 500.</small>
             </div>
             <div class="form-group">
                 <label for="number">Номер:</label>
-                <input type="text" id="number" name="number" required>
+                <input type="text" id="number" name="number" pattern="\d{11}" maxlength="11" required
+                       title="Номер должен состоять из 11 цифр.">
+                <small>Пример: 79888545849 (11 цифр).</small>
             </div>
             <div class="form-group">
                 <label for="location">Местоположение:</label>
-                <input type="text" id="location" name="location">
+                <input type="text" id="location" name="location" minlength="3" maxlength="100" required
+                       title="Местоположение должно содержать минимум 3 символа.">
+                <small>Пример: Москва, ул. Ленина, д. 10.</small>
             </div>
             <button type="submit">Отправить</button>
         </form>

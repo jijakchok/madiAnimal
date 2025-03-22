@@ -484,6 +484,8 @@ textarea {
     border-radius: 8px;
 }
 
+css
+Copy
 @media screen {
     .animal-grid {
         grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
@@ -505,3 +507,4 @@ textarea {
         margin-bottom: 20px; /* Отступ после изображения */
     }
 }
+

@@ -460,7 +460,6 @@ textarea {
 
 
 
-/* В вашем CSS файле */
 .animal-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* На десктопе */
@@ -484,9 +483,8 @@ textarea {
     border-radius: 8px;
 }
 
-css
-Copy
-@media screen {
+/* Медиазапрос для мобильных устройств */
+@media screen and (max-width: 768px) { /* Устанавливаем максимальную ширину для мобильных устройств */
     .animal-grid {
         grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
         padding: 10px; /* Отступы вокруг сетки */

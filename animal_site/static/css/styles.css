@@ -456,32 +456,42 @@ textarea {
     resize: vertical; /* Разрешаем изменять высоту только вертикально */
     min-height: 100px; /* Минимальная высота */
 }
+/* В вашем CSS файле */
 .animal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Увеличиваем минимальную ширину карточки */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* На десктопе */
     gap: 20px;
-    padding: 10px; /* Добавляем отступы */
+    padding: 10px;
 }
 
 .animal-card {
     border: 1px solid #ccc;
     padding: 15px;
     text-align: center;
-    overflow: hidden; /* Убедимся, что контент не выходит за пределы карточки */
+    overflow: hidden;
+    background-color: #f9f9f9; /* Легкий фон для анкеты */
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень для карточки */
 }
 
 .animal-card img {
-    max-width: 100%; /* Ограничиваем ширину изображения */
-    height: auto; /* Сохраняем пропорции */
-    border-radius: 8px; /* Скругление углов */
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
 @media (max-width: 768px) { /* Для мобильных устройств */
-    .animal-card {
-        padding: 10px;
-    }
-
     .animal-grid {
         grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
+    }
+
+    .animal-card {
+        width: 100%; /* Анкета занимает всю ширину экрана */
+        margin: 10px 0; /* Отступы между анкетами */
+        padding: 20px; /* Увеличиваем отступы внутри анкеты */
+    }
+
+    .animal-card img {
+        max-width: 100%; /* Изображение занимает всю ширину анкеты */
     }
 }

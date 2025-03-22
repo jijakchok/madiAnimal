@@ -486,7 +486,7 @@ textarea {
 
 css
 Copy
-@media (max-width: 768px) {
+@media (max-width: none) {
     .animal-grid {
         grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
         padding: 10px; /* Отступы вокруг сетки */

@@ -456,3 +456,32 @@ textarea {
     resize: vertical; /* Разрешаем изменять высоту только вертикально */
     min-height: 100px; /* Минимальная высота */
 }
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Увеличиваем минимальную ширину карточки */
+    gap: 20px;
+    padding: 10px; /* Добавляем отступы */
+}
+
+.animal-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    overflow: hidden; /* Убедимся, что контент не выходит за пределы карточки */
+}
+
+.animal-card img {
+    max-width: 100%; /* Ограничиваем ширину изображения */
+    height: auto; /* Сохраняем пропорции */
+    border-radius: 8px; /* Скругление углов */
+}
+
+@media (max-width: 768px) { /* Для мобильных устройств */
+    .animal-card {
+        padding: 10px;
+    }
+
+    .animal-grid {
+        grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
+    }
+}

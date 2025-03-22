@@ -483,7 +483,8 @@ textarea {
     height: auto;
     border-radius: 8px;
 }
-@media (max-width: 768px) {
+
+@media screen {
     .animal-grid {
         grid-template-columns: 1fr; /* Одна колонка на мобильных устройствах */
         padding: 10px; /* Отступы вокруг сетки */
